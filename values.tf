@@ -3,14 +3,14 @@ locals {
     "controller" : {
         "serviceAccount" : {
           "annotations" : {
-            "eks.amazonaws.com/role-arn" : aws_iam_role[0].this.arn
+            "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
           }
         }
       }
     "server": {
       "serviceAccount" : {
           "annotations" : {
-            "eks.amazonaws.com/role-arn" : aws_iam_role[0].this.arn
+            "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
           }
         }
     }
