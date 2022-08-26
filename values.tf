@@ -1,6 +1,15 @@
 locals {
   values_default = yamlencode({
-    # add default values here
+    "rbac" : {
+      "create" : var.rbac_create
+    }
+    "serviceAccount" : {
+      "create" : var.service_account_create
+      "name" : var.service_account_name
+      "annotations" : {
+        "eks.amazonaws.com/role-arn" : local.irsa_role_create ? aws_iam_role.this[0].arn : ""
+      }
+    }
   })
 }
 
