@@ -68,28 +68,10 @@ variable "self_managed" {
   description = "If set to true, the module will create ArgoCD Application manifest in the cluster and abandon the Helm release"
 }
 
-variable "rbac_create" {
-  type        = bool
-  default     = true
-  description = "Whether to create and use RBAC resources"
-}
-
-variable "service_account_create" {
-  type        = bool
-  default     = true
-  description = "Whether to create Service Account"
-}
-
 variable "irsa_role_create" {
   type        = bool
   default     = true
   description = "Whether to create IRSA role and annotate service account"
-}
-
-variable "irsa_policy_enabled" {
-  type        = bool
-  default     = true
-  description = "Whether to create opinionated policy to allow operations on specified zones in `policy_allowed_zone_ids`."
 }
 
 variable "irsa_additional_policies" {
@@ -110,9 +92,14 @@ variable "irsa_tags" {
   description = "IRSA resources tags"
 }
 
-variable "service_account_name" {
-  default     = "argocd"
-  description = "The k8s argocd service account name"
+variable "service_account_name_server" {
+  default     = "argocd-server"
+  description = "The k8s argocd service account name for server"
+}
+
+variable "service_account_name_application_controller" {
+  default     = "argocd-application-controller"
+  description = "The k8s argocd service account name for application controller"
 }
 
 variable "argo_namespace" {
