@@ -1,18 +1,18 @@
 locals {
   values_irsa = yamlencode({
     "controller" : {
-        "serviceAccount" : {
-          "annotations" : {
-            "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
-          }
+      "serviceAccount" : {
+        "annotations" : {
+          "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
         }
       }
-    "server": {
+    }
+    "server" : {
       "serviceAccount" : {
-          "annotations" : {
-            "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
-          }
+        "annotations" : {
+          "eks.amazonaws.com/role-arn" : aws_iam_role.this[0].arn
         }
+      }
     }
   })
 }
