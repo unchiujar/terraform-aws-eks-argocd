@@ -4,6 +4,16 @@ variable "enabled" {
   description = "Variable indicating whether deployment is enabled"
 }
 
+variable "cluster_identity_oidc_issuer" {
+  type        = string
+  description = "The OIDC Identity issuer for the cluster"
+}
+
+variable "cluster_identity_oidc_issuer_arn" {
+  type        = string
+  description = "The OIDC Identity issuer ARN for the cluster that can be used to associate IAM roles with a service account"
+}
+
 variable "helm_create_namespace" {
   type        = bool
   default     = true
@@ -46,16 +56,50 @@ variable "settings" {
   description = "Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/argo/argo-cd"
 }
 
+variable "values" {
+  type        = string
+  default     = ""
+  description = "Additional yaml encoded values which will be passed to the Helm chart."
+}
+
 variable "self_managed" {
   type        = bool
   default     = true
   description = "If set to true, the module will create ArgoCD Application manifest in the cluster and abandon the Helm release"
 }
 
-variable "values" {
+variable "irsa_role_create" {
+  type        = bool
+  default     = true
+  description = "Whether to create IRSA role and annotate service account"
+}
+
+variable "irsa_additional_policies" {
+  type        = map(string)
+  default     = {}
+  description = "Map of the additional policies to be attached to default role. Where key is arbitrary id and value is policy arn."
+}
+
+variable "irsa_role_name_prefix" {
   type        = string
-  default     = ""
-  description = "Additional yaml encoded values which will be passed to the Helm chart."
+  default     = "argocd-irsa"
+  description = "The IRSA role name prefix for vector"
+}
+
+variable "irsa_tags" {
+  type        = map(string)
+  default     = {}
+  description = "IRSA resources tags"
+}
+
+variable "service_account_name_server" {
+  default     = "argocd-server"
+  description = "The k8s argocd service account name for server"
+}
+
+variable "service_account_name_application_controller" {
+  default     = "argocd-application-controller"
+  description = "The k8s argocd service account name for application controller"
 }
 
 variable "argo_namespace" {

@@ -35,11 +35,17 @@ module "eks_node_group" {
 module "argocd_disabled" {
   source = "../../"
 
+  cluster_identity_oidc_issuer     = module.eks_cluster.eks_cluster_identity_oidc_issuer
+  cluster_identity_oidc_issuer_arn = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
+
   enabled = false
 }
 
 module "argocd_helm" {
   source = "../../"
+
+  cluster_identity_oidc_issuer     = module.eks_cluster.eks_cluster_identity_oidc_issuer
+  cluster_identity_oidc_issuer_arn = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
 
   enabled           = true
   argo_enabled      = false
@@ -58,6 +64,9 @@ module "argocd_helm" {
 module "argocd_self_managed_kubernetes" {
   source = "../../"
 
+  cluster_identity_oidc_issuer     = module.eks_cluster.eks_cluster_identity_oidc_issuer
+  cluster_identity_oidc_issuer_arn = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
+
   enabled           = true
   argo_enabled      = true
   argo_helm_enabled = false
@@ -75,6 +84,9 @@ module "argocd_self_managed_kubernetes" {
 
 module "argocd_self_managed_helm" {
   source = "../../"
+
+  cluster_identity_oidc_issuer     = module.eks_cluster.eks_cluster_identity_oidc_issuer
+  cluster_identity_oidc_issuer_arn = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
 
   enabled           = true
   argo_enabled      = true
