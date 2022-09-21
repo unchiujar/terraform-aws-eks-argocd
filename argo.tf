@@ -55,8 +55,11 @@ resource "helm_release" "argo_application" {
     data.utils_deep_merge_yaml.argo_helm_values[0].output,
     var.argo_helm_values
   ]
-}
 
+  depends_on = [
+    helm_release.self_managed[0]
+  ]
+}
 
 resource "kubernetes_manifest" "this" {
   count = var.enabled && var.argo_enabled && !var.argo_helm_enabled ? 1 : 0
