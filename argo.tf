@@ -17,7 +17,7 @@ locals {
           "skipCrds" : var.argo_skip_crds
         },
         length(var.settings) > 0 ? {
-          "parameters" : [for k, v in var.settings : tomap({ "forceString" : true, "name" : k, "value" : v })]
+          "parameters" : [for k, v in var.settings : tomap({ "forceString" : "true", "name" : k, "value" : v })]
         } : {}
       )
     }
